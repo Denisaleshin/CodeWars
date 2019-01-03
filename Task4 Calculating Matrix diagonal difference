@@ -1,0 +1,35 @@
+/*
+ Given a square matrix, calculate the absolute difference between the sums of its diagonals.
+ For example, the square matrix  is shown below:
+ 1 2 3
+ 4 5 6
+ 9 8 9
+ The left-to-right diagonal = 1+5+9 . The right to left diagonal = 3+5+9. Their absolute difference is |15-17| = 2  .
+ */
+
+// Solution
+
+let x = [11, 2, 4]
+let y = [4, 5, 6]
+let z = [10, 8, -12]
+let matrix = [x, y, z]
+
+
+func diagonalDifference(arr: [[Int]]) -> Int {
+    var pDiagonalSumm = 0
+    var sDiagonalSumm = 0
+    for i in 0...matrix.count - 1 {
+        let row = matrix[i]
+        for j in 0...row.count - 1 {
+            if i == j {
+                if i == (matrix.count - 1 - j) {
+                    sDiagonalSumm += matrix[i][j]
+                }
+                pDiagonalSumm += matrix[i][j]
+            } else if  i  == (matrix.count - 1 - j)    {
+                sDiagonalSumm += matrix[i][j]
+            }
+        }
+    }
+    return abs(pDiagonalSumm - sDiagonalSumm)
+}
