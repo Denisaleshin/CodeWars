@@ -1,0 +1,54 @@
+/*
+ Given an array of integers, calculate the fractions of its elements that are positive, negative, and are zeros. Print the decimal value of each fraction on a new line.
+ 
+ Note: This challenge introduces precision problems. The test cases are scaled to six decimal places, though answers with absolute error of up to  are acceptable.
+ 
+ For example, given the array [1,1,0, -1, -1]  there are 5 elements, two positive, two negative and one zero.  It should be printed as
+ 
+ 0.400000
+ 0.400000
+ 0.200000
+ */
+
+// Solution:
+
+import Foundation
+
+func calk(_ array:[Int]) {
+
+    var positives = 0
+    var negatives = 0
+    var nulables = 0
+
+    for i in 0...array.count - 1 {
+        if array[i] > 0 {
+            positives += 1
+        } else {
+            if array[i] == 0 {
+                negatives += 1
+            } else {
+                nulables += 1
+            }
+        }
+    }
+
+    func fractionOf(_ number: Int) -> String {
+        let formatter = NumberFormatter()
+        formatter.minimumFractionDigits = 6
+        formatter.maximumFractionDigits = 6
+        formatter.minimumSignificantDigits = 1
+        
+        if Double(number) != 0 {
+            let relation = NSNumber(floatLiteral:(Double(number) / Double(array.count)))
+            guard let str = formatter.string(from: relation) else { return ""}
+            return str
+        } else {
+            return "0.000000"
+        }
+    }
+    
+    print("\(fractionOf(positives))")
+    print("\(fractionOf(negatives))")
+    print("\(fractionOf(nulables))")
+
+}
